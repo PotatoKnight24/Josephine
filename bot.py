@@ -32,6 +32,9 @@ def get_meal_type(message):
 # Handle Meal Type Selection
 @bot.callback_query_handler(func=lambda call: call.data.startswith("meal_"))
 def handle_meal_type(call):
+    if chat_id not in user_data:
+        user_data[chat_id] = {}
+
     meal_type = call.data.split("_")[1]  # Extract the meal type from callback data
     user_data[call.message.chat.id]['type'] = meal_type
     bot.send_message(call.message.chat.id, "How much time do you have? (in minutes)")
@@ -39,6 +42,8 @@ def handle_meal_type(call):
 
 # Handle User Input for Duration
 def get_fanciness(message):
+    if chat_id not in user_data:
+        user_data[chat_id] = {}
     user_data[message.chat.id]['duration'] = message.text  # Store duration
 
     # Create Inline Keyboard for Fanciness Selection (1-10)
@@ -54,6 +59,8 @@ def get_fanciness(message):
 # Handle Fanciness Selection
 @bot.callback_query_handler(func=lambda call: call.data.startswith("fanciness_"))
 def handle_fanciness(call):
+    if chat_id not in user_data:
+        user_data[chat_id] = {}
     fanciness_level = call.data.split("_")[1]  # Extract fanciness level
     user_data[call.message.chat.id]['fanciness'] = fanciness_level
     bot.send_message(call.message.chat.id, "Any other preferences?")
@@ -61,6 +68,8 @@ def handle_fanciness(call):
 
 # Handle Additional Notes & Process Recipe Request
 def process_meal(message):
+    if chat_id not in user_data:
+        user_data[chat_id] = {}
     user_data[message.chat.id]['other_notes'] = message.text  # Store other notes
 
     # Retrieve stored data

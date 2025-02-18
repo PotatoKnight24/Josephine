@@ -89,4 +89,6 @@ server = threading.Thread(target=run_flask)
 server.start()
 
 # Start Telegram bot
-bot.polling()
+
+bot.polling(non_stop=True, skip_pending=True)
+

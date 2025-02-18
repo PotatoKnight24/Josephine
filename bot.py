@@ -32,6 +32,7 @@ def get_meal_type(message):
 # Handle Meal Type Selection
 @bot.callback_query_handler(func=lambda call: call.data.startswith("meal_"))
 def handle_meal_type(call):
+    chat_id = call.message.chat.id
     if chat_id not in user_data:
         user_data[chat_id] = {}
 
@@ -42,6 +43,7 @@ def handle_meal_type(call):
 
 # Handle User Input for Duration
 def get_fanciness(message):
+    chat_id = call.message.chat.id
     if chat_id not in user_data:
         user_data[chat_id] = {}
     user_data[message.chat.id]['duration'] = message.text  # Store duration

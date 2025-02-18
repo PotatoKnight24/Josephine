@@ -3,7 +3,6 @@ import config
 from dotenv import load_dotenv
 from google_sheets import get_food_list
 load_dotenv()
-
 client = openai.OpenAI(api_key=config.OPEN_API_KEY)
 def get_recipe(meal_type,duration,difficulty,other_notes = ''):
     prompt = f"""
@@ -16,10 +15,10 @@ def get_recipe(meal_type,duration,difficulty,other_notes = ''):
     Focus on ease of obtaining ingredients unless otherwise stated, user is a workfrom home office worker who is trying to eat healthy
     
     Ensure the response follows this exact format:
-    
+    please ensure that you use {meal_type} {duration} {difficulty} as specified, do not come up with your own
     🍽 *Recipe Name:* [Generated Name]
-    🕒 *Time Required:* [X minutes]
-    🔥 *Fanciness:* [Easy/Medium/Hard]
+    🕒 *Time Required:* [as specified]
+    🔥 *Fanciness:* [as specified]
     🥣 **Ingredients:** 
        - Ingredient 1
        - Ingredient 2
@@ -29,6 +28,7 @@ def get_recipe(meal_type,duration,difficulty,other_notes = ''):
     1. Step 1
     2. Step 2
     3. Step 3
+    
 
     """
     

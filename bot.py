@@ -1,6 +1,8 @@
 import os
+import threading
 import telebot
 import requests
+from flask import Flask
 from dotenv import load_dotenv
 from openai import OpenAI
 from reciper_recommender import get_recipe
@@ -73,5 +75,18 @@ def process_meal(message):
     )
 
     bot.reply_to(message, f"Here is your meal recommendation:\n{reply}")
+app = Flask(__name__)
 
+@app.route('/')
+def home():
+    return "Bot is running!"
+
+def run_flask():
+    app.run(host='0.0.0.0', port=int(os.getenv("PORT", 10000)),debug = False)
+
+# Start Flask in a separate thread
+server = threading.Thread(target=run_flask)
+server.start()
+
+# Start Telegram bot
 bot.polling()

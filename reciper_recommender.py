@@ -40,10 +40,10 @@ def get_recipe(meal_type,duration,difficulty,other_notes = ''):
         "content" : prompt
     }])
     recipe = response.choices[0].message.content
-    except openai.APIError as e:
-        return "Sorry, I couldn't fetch a recipe at the moment. Please try later!"
-    except Exception as e:
-        return "Something went wrong... Try again later!"
+    # except openai.APIError as e:
+    #     return "Sorry, I couldn't fetch a recipe at the moment. Please try later!"
+    # except Exception as e:
+    #     return "Something went wrong... Try again later!"
 
 
     return recipe
